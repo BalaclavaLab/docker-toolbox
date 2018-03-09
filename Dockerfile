@@ -4,6 +4,7 @@ ENV PAGER='busybox less'
 
 RUN apk add --no-cache \
          bash \
+         jq \
          curl \
          redis \
          groff \
