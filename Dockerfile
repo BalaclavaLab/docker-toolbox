@@ -16,7 +16,7 @@ RUN apk add --no-cache \
          ca-certificates \
          ruby \
          python \
-    && gem install redis --no-document \
+    && gem install redis --version 3.3.3 --no-document \
     && apk add --no-cache --virtual .aws-build-deps py-pip \
     && pip install awscli \
     && apk del .aws-build-deps \
