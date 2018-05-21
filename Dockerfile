@@ -1,5 +1,17 @@
 FROM alpine:3.7
 
+ENV PBZIP2_VER=1.1.13
+
+RUN apk add --no-cache build-base bzip2-dev curl \
+    && curl -fSL https://launchpad.net/pbzip2/1.1/${PBZIP2_VER}/+download/pbzip2-${PBZIP2_VER}.tar.gz -o pbzip2.tar.gz \
+    && tar zxf pbzip2.tar.gz \
+    && cd pbzip2-${PBZIP2_VER} \
+    && make \
+    && cp pbzip2 /usr/local/bin
+
+
+FROM alpine:3.7
+
 ENV PAGER='busybox less'
 
 RUN apk add --no-cache \
@@ -20,13 +32,12 @@ RUN apk add --no-cache \
     && apk add --no-cache --virtual .aws-build-deps py-pip \
     && pip install awscli \
     && apk del .aws-build-deps \
-    && curl -fSL https://github.com/projectcalico/calicoctl/releases/download/v1.6.3/calicoctl -o /usr/bin/calicoctl \
-    && chmod +x /usr/bin/calicoctl \
     && curl -fSL http://download.redis.io/redis-stable/src/redis-trib.rb -o /usr/bin/redis-trib \
     && chmod +x /usr/bin/redis-trib \
     && git clone --depth 1 https://github.com/Bash-it/bash-it.git /root/.bash_it
 
 COPY bashrc /root/.bashrc
+COPY --from=0 /usr/local/bin/pbzip2 /usr/bin/pbzip2
 
 ENTRYPOINT ["/bin/bash"]
 
