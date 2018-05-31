@@ -34,6 +34,8 @@ RUN apk add --no-cache \
     && apk del .aws-build-deps \
     && curl -fSL http://download.redis.io/redis-stable/src/redis-trib.rb -o /usr/bin/redis-trib \
     && chmod +x /usr/bin/redis-trib \
+    && curl -fSL https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl -o /usr/bin/kubectl \
+    && chmod +x /usr/bin/kubectl \
     && git clone --depth 1 https://github.com/Bash-it/bash-it.git /root/.bash_it
 
 COPY bashrc /root/.bashrc
