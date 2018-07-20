@@ -1,4 +1,4 @@
-FROM alpine:3.7
+FROM alpine:3.8
 
 ENV PBZIP2_VER=1.1.13
 
@@ -10,7 +10,7 @@ RUN apk add --no-cache build-base bzip2-dev curl \
     && cp pbzip2 /usr/local/bin
 
 
-FROM alpine:3.7
+FROM alpine:3.8
 
 ENV PAGER='busybox less'
 
