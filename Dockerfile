@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM alpine:3.8 as pbzip2
 
 ENV PBZIP2_VER=1.1.13
 
@@ -8,7 +8,6 @@ RUN apk add --no-cache build-base bzip2-dev curl \
     && cd pbzip2-${PBZIP2_VER} \
     && make \
     && cp pbzip2 /usr/local/bin
-
 
 FROM alpine:3.8
 
@@ -21,7 +20,6 @@ RUN apk add --no-cache \
          git \
          vim \
          curl \
-         redis \
          groff \
          tcpdump \
          bind-tools \
@@ -39,7 +37,8 @@ RUN apk add --no-cache \
     && git clone --depth 1 https://github.com/Bash-it/bash-it.git /root/.bash_it
 
 COPY bashrc /root/.bashrc
-COPY --from=0 /usr/local/bin/pbzip2 /usr/bin/pbzip2
+COPY --from=pbzip2 /usr/local/bin/pbzip2 /usr/bin/pbzip2
+COPY --from=redis:5.0.2-alpine /usr/local/bin/redis-* /usr/local/bin/
 
 ENTRYPOINT ["/bin/bash"]
 
