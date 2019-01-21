@@ -24,21 +24,17 @@ RUN apk add --no-cache \
          tcpdump \
          bind-tools \
          ca-certificates \
-         ruby \
          python \
-    && gem install redis --version 3.3.3 --no-document \
     && apk add --no-cache --virtual .aws-build-deps py-pip \
     && pip install awscli \
     && apk del .aws-build-deps \
-    && curl -fSL http://download.redis.io/redis-stable/src/redis-trib.rb -o /usr/bin/redis-trib \
-    && chmod +x /usr/bin/redis-trib \
     && curl -fSL https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl -o /usr/bin/kubectl \
     && chmod +x /usr/bin/kubectl \
     && git clone --depth 1 https://github.com/Bash-it/bash-it.git /root/.bash_it
 
 COPY bashrc /root/.bashrc
 COPY --from=pbzip2 /usr/local/bin/pbzip2 /usr/bin/pbzip2
-COPY --from=redis:5.0.2-alpine /usr/local/bin/redis-* /usr/local/bin/
+COPY --from=redis:5.0.3-alpine /usr/local/bin/redis-* /usr/local/bin/
 
 ENTRYPOINT ["/bin/bash"]
 
