@@ -17,3 +17,5 @@ bash-it enable alias git general &> /dev/null
 
 # Load bash-completion
 [ -f /usr/share/bash-completion/bash_completion  ] && source /usr/share/bash-completion/bash_completion
+
+alias k=kubectl
