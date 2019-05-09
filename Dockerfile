@@ -23,7 +23,7 @@ RUN apk add --no-cache \
     && git clone --depth 1 https://github.com/Bash-it/bash-it.git /root/.bash_it
 
 COPY bashrc /root/.bashrc
-COPY --from=redis:5.0.3-alpine /usr/local/bin/redis-* /usr/local/bin/
+COPY --from=redis:5.0.4-alpine /usr/local/bin/redis-* /usr/local/bin/
 
 ENTRYPOINT ["/bin/bash"]
 
