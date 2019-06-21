@@ -1,4 +1,4 @@
-FROM alpine:3.9
+FROM alpine:3.10
 
 ENV PAGER='busybox less'
 
@@ -10,6 +10,7 @@ RUN apk add --no-cache \
          vim \
          curl \
          groff \
+         redis \
          tcpdump \
          bind-tools \
          ca-certificates \
@@ -23,7 +24,6 @@ RUN apk add --no-cache \
     && git clone --depth 1 https://github.com/Bash-it/bash-it.git /root/.bash_it
 
 COPY bashrc /root/.bashrc
-COPY --from=redis:5.0.4-alpine /usr/local/bin/redis-* /usr/local/bin/
 
 ENTRYPOINT ["/bin/bash"]
 
