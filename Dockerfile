@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM alpine:3.11
 
 ENV PAGER='busybox less'
 
@@ -13,7 +13,6 @@ RUN apk add --no-cache \
          redis \
          tcpdump \
          bind-tools \
-         mariadb-backup \
          ca-certificates \
          python \
     && apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing lbzip2 \
